@@ -33,21 +33,19 @@
 (defn score [ws]
   (fn [s]
     (+ (- 1 d)
-       (* d (/ (reduce #(+ %1 (/ (count (overlap #{s %2}))
-                                 (+ (Math/log (count s))
-                                    (Math/log (count %2)))))
-                       0
-                       (disj ws s)))))))
+       (* d (reduce #(+ %1 (/ (count (overlap #{s %2}))
+                              (+ (Math/log (count s))
+                                 (Math/log (count %2)))))
+                    0
+                    (disj ws s))))))
 
 (defn rank [text]
   (let [msgs (parse-text text)
-        msgs->sets (reduce #(assoc %1 %2 (set %2))
-                           {}
-                           msgs)
-        sets (map val msgs->sets)
+        sets (map set msgs)
         scorer (score (set sets))
         scored (reduce #(assoc %1 %2 (scorer (set %2)))
                        {}
                        msgs)
         sorted (sort-by val > scored)]
    sorted))
+
