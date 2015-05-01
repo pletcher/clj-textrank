@@ -4,13 +4,16 @@ A Clojure library implementing [TextRank](http://web.eecs.umich.edu/~mihalcea/pa
 
 ## Usage
 
-```
+```clojure
 (use 'clj-textrank.core)
 
 (rank "The story so far:
        In the beginning the Universe was created.
        This has made a lot of people very angry
        and been widely regarded as a bad move.")
+
+```
+
 
 ## License
 
